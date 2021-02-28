@@ -72,6 +72,22 @@ router.post('/signin', function (req, res) {
     }
 });
 
+router.get('/movies', function (req, res){
+    res.status(200).send({msg: 'GET movies', headers: req.headers, query: req.query, env: process.env.SECRET_KEY});
+});
+
+router.post('/movies', function (req, res){
+    res.status(200).send({msg: 'Movie saved', headers: req.headers, query: req.query, env: process.env.SECRET_KEY})
+});
+
+router.put('/movies', authJwtController.isAuthenticated, function (req, res){
+    res.status(200).send({msg: 'Movie updated', headers: req.headers, query: req.query, env: process.env.SECRET_KEY})
+});
+
+router.delete('/movies', authJwtController.isAuthenticated, function (req, res){
+    res.status(200).send({msg: 'Movie deleted', headers: req.headers, query: req.query, env: process.env.SECRET_KEY})
+});
+
 router.route('/testcollection')
     .delete(authController.isAuthenticated, function(req, res) {
         console.log(req.body);
